@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        {{reverseMessage}}
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                num1:10,
+                num2:20,
+            },
+
+            computed:{
+                reverseMessage:function(){
+                    console.log(this);
+                    var tt1 = (this.num2 + this.num1)/2;
+                    var tt2 = (this.num2 + this.num1);
+
+                    return "平均值 ："+ tt1 +", 总和 ： "+ tt2;
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
