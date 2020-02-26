@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        table {
+            width: 50%;
+            margin: 50px auto;
+
+            /* 合并单元格边框 */
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            /* 设置表单单元格的边框 */
+            border: 1px solid #999;
+            /* 设置单元格内边距 */
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <table>
+            <tr>
+                <th colspan="5">学生信息表</th>
+            </tr>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>贯籍</th>
+                <th>性别</th>
+                <th>爱好</th>
+            </tr>
+            <tr v-for="item in list">
+                <td>{{item.xh}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.gj}}</td>
+                <td>{{item.xb}}</td>
+                <td>{{item.ah}}</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                list:[
+                    {"xh":1,"name":"张三","gj":"湖南","xb":"男","ah":"打篮球"},
+                    {"xh":2,"name":"李四","gj":"广东","xb":"男","ah":"打羽毛球"},
+                    {"xh":3,"name":"小红","gj":"四川","xb":"女","ah":"踢毽子"},
+                    {"xh":4,"name":"小花","gj":"北京","xb":"女","ah":"打代码"},
+                    {"xh":5,"name":"王麻子","gj":"山东","xb":"男","ah":"打乒乓球"}
+                ]
+            }
+
+        })
+    </script>
+</body>
+</html>
