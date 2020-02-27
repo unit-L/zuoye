@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        table {
+            width: 50%;
+            margin: 50px auto;
+
+            /* 合并单元格边框 */
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            /* 设置表单单元格的边框 */
+            border: 1px solid #999;
+            /* 设置单元格内边距 */
+            padding: 5px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .btn{
+            font-size:20px;
+            width: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <table>
+        <tr>
+            <th>商品名称</th>
+            <th>商品价格</th>
+            <th>商品数量</th>
+            <th>操作</th>
+        </tr>
+        <tr v-for="(item,index) in list">
+            <td>{{item.xh}}</td>
+            <td>{{item.name}}</td>
+            <td><button class="btn" @click="tt(item)">-</button>{{item.gj}}<button class="btn" @click="tt1(item)">+</button></td>
+            <td>
+                <button @click="add(item,index)">加入购物车</button>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th colspan="4">购物车</th>
+        </tr>
+        <tr>
+            <th>商品名称</th>
+            <th>商品价格</th>
+            <th>商品数量</th>
+            <th>操作</th>
+        </tr>
+        <tr v-for="(item,index) in cartList">
+            <td>{{item.xh}}</td>
+            <td>{{item.name}}</td>
+            <td><button class="btn" @click="tt(item)">-</button>{{item.gj}}<button class="btn" @click="tt1(item)">+</button></td>
+
+            <td>
+                <button @click="add1(item,index)">移除购物车</button>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="">总价</th>
+            <th colspan="3">{{zojia1}}</th>
+        </tr>
+    </table>
+</div>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            list:[
+                {"xh":"iphone X","name":"5000","gj":1},
+                {"xh":"三星手机","name":"4040","gj":1},
+                {"xh":"小米","name":"2000","gj":1},
+                {"xh":"OPPO","name":"1000","gj":1},
+            ],
+            cartList:[]
+        },
+        computed:{
+          zojia1:function () {
+              var zojia = 0;
+              for (var i = 0; i < this.cartList.length;i++){
+                  zojia += this.cartList[i].name*this.cartList[i].gj
+              }
+              return zojia
+          }
+        },
+        methods:{
+            tt:function (item) {
+                if(item.gj > 0){
+                    item.gj--
+                }
+            },
+            tt1:function (item) {
+                item.gj++
+            },
+            add:function (item,index) {
+                if (this.cartList.indexOf(item) == -1){
+                    this.cartList.push(item);
+                }else {
+                    this.cartList[this.cartList.indexOf(item)].gj += this.list[index].gj;
+                    console.log(this.list[index].gj);
+                }
+            },
+            add1:function (item,index) {
+                this.cartList.shift(item);
+            }
+        }
+
+    })
+</script>
+</body>
+</html>
