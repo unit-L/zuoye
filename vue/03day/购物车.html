@@ -108,7 +108,10 @@
             },
             add:function (item,index) {
                 if (this.cartList.indexOf(item) == -1){
-                    this.cartList.push(item);
+                    //需要深拷贝
+                    // var good = JSON.parse( JSON.stringify(item));
+                    this.cartList.concat(item);
+                    // this.cartList.push(item);
                 }else {
                     this.cartList[this.cartList.indexOf(item)].gj += this.list[index].gj;
                     console.log(this.list[index].gj);

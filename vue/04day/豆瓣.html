@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        *{padding:0;margin:0;}
+        ul,li{list-style:none;}
+        .list{display: flex; flex-wrap: nowrap; flex-direction: row;overflow: scroll;}
+        .list li{ width: 100%}
+        .list li div{width: 100px; height:150px; margin:5px;}
+        .list li div img{width:80px; height:100px;}
+    </style>
+    <meta name="viewport" content="width=device-width" />
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script src="../js/axios.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div id="app">
+        <!--3.将组件渲染到页面上-->
+        <do1 :dd1="guochanList"></do1>
+        <do2 :dd2="zongyiList"></do2>
+        <do3 :dd3="yingmeiList"></do3>
+    </div>
+    <script type="text/javascript">
+    var do1 = {
+        props:["dd1"],
+        created:function(){
+            console.log(this.dd1);
+
+        },
+        template:`<div>
+        <h2>近期值得看的国产剧</h2>
+        <ul class="list">
+            <li v-for="item in dd1" >
+                <div>
+                    <img :src="item.cover.url" title="item.title"/>
+                    {{item.title}}
+                </div>
+            </li>
+        </ul>
+    </div>`
+    };
+    var do2 = {
+        props:["dd2"],
+        template: `
+     <div>
+        <h2>近期值得看的综艺节目</h2>
+        <ul class="list">
+            <li v-for="item in dd2">
+                <div>
+                    <img :src="item.cover.url" title="item.title"/>
+                    {{item.title}}
+                    {{item.rating.value}}
+                </div>
+
+            </li>
+        </ul>
+    </div>`
+    };
+    var do3 = {
+        props:["dd3"],
+        template :`
+    <div>
+        <h2>近期值得看的英美剧</h2>
+        <ul class="list">
+            <li v-for="item in dd3">
+                <div>
+                    <img :src="item.cover.url" title="item.title"/>
+                    {{item.title}}
+                    {{item.rating.value}}
+                </div>
+            </li>
+        </ul>
+    </div>`
+    };
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            guochanList:[],
+            zongyiList:[],
+            yingmeiList:[]
+        },
+        // 在钩子函数中获取数据
+        //axios文档  https://www.kancloud.cn/yunye/axios/234845
+        mounted:function(){
+            //国产
+            axios.get('../js/dianshiju.json').then((data)=>{//成功获取数据的回调函数
+                console.log(data);
+                this.guochanList = data.data.subject_collection_items;
+                console.log(this.guochanList);
+            }).catch((error)=>{//失败的回调函数
+                console.log(error);
+            });
+            axios.get('../js/zongyi.json').then((data)=>{//成功获取数据的回调函数
+                console.log(data);
+                this.zongyiList = data.data.subject_collection_items;
+            }).catch((error)=>{//失败的回调函数
+                console.log(error);
+            });
+            axios.get('../js/yingmei.json').then((data)=>{//成功获取数据的回调函数
+                console.log(data);
+                this.yingmeiList = data.data.subject_collection_items;
+            }).catch((error)=>{//失败的回调函数
+                console.log(error);
+            })
+
+        },
+        components:{
+            do1,
+            do2,
+            do3
+        }
+    })
+</script>
+</body>
+</html>

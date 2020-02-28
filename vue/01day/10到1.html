@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <button  v-bind:disabled="mybtn">
+        {{tt}}
+    </button>
+
+</div>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data:{
+            tt:10,
+            mybtn:false,
+
+        },
+        methods:{
+            mounted:function () {
+                var timer = null;
+                timer = setInterval(
+                    () => {
+                        this.tt--;
+                        if (this.tt == 0){
+                            this.tt= "确认";
+                            this.mybtn = true;
+                            clearInterval(timer)
+                        }
+                    },1000)
+            }
+        }
+
+
+
+    })
+
+</script>
+</body>
+</html>
