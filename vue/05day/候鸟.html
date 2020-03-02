@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width = device-width">
+    <link rel="stylesheet" href="../js/idangerous.swiper.css">
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/idangerous.swiper.js"></script>
+    <style>
+        .banner {
+            width: 500px;
+            height: 332px;
+            margin: 50px auto;
+            padding: 30px 40px;
+            background-color: #333333;
+            position: relative;
+        }
+
+        .swiper-container {
+            width: 500px;
+            height: 332px;
+        }
+
+        .pagination {
+            position: absolute;
+            left: 0;
+            text-align: center;
+            bottom:5px;
+            width: 100%;
+        }
+
+        .banner .arrow-left {
+            background: url(./swiper/img/arrows.png) no-repeat left top;
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            margin-top: -15px;
+            width: 17px;
+            height: 30px;
+        }
+
+        .banner .arrow-right {
+            background: url(./swiper/img/arrows.png) no-repeat left bottom;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            margin-top: -15px;
+            width: 17px;
+            height: 30px;
+        }
+
+        .swiper-pagination-switch {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            background: #999;
+            box-shadow: 0px 1px 2px #555 inset;
+            margin: 0 3px;
+            cursor: pointer;
+        }
+        .swiper-active-switch {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="banner">
+        <div>
+            <lunbo :data="lunbo"></lunbo>
+        </div>
+    </div>
+    <script>
+        <!--组件-->
+        var lunbo = {
+            props:["data"],
+            created:function(){
+                console.log(this.data);
+            },
+            template: `
+                <div class="swiper-container">
+                  <div class="swiper-wrapper">
+                      <div class="swiper-slide" v-for="(item,index) in data"> <img :src="item.photoUrl" alt=""></div>
+                  </div>
+                <div class="pagination"></div>
+                </div>
+                `
+        };
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                lunbo:[],
+                content1:[],
+                foot:[]
+            },
+            mounted:function () {
+                axios.get("js/h1.json").then(data=>{
+                    console.log(data);
+                    this.lunbo = data.data
+                })
+            },
+            components:{
+                lunbo,
+            }
+        })
+    </script>
+    <script>
+        var mySwiper = new Swiper(".swiper-container", {
+            // 开启循环
+            loop: true,
+            // 自动滑动
+            autoplay: 1000,
+            // 指定分页器
+            pagination: '.pagination',
+            // 点击分页器的指示点时会发生Swiper
+            paginationClickable: true
+        })
+    </script>
+</body>
+</html>
