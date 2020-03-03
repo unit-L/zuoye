@@ -7,22 +7,24 @@
     <link rel="stylesheet" href="../js/idangerous.swiper.css">
     <script src="../js/vue.js"></script>
     <script src="../js/axios.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../js/idangerous.swiper.js"></script>
+    <script src="../js/idangerous.swiper-2.0.min.js"></script>
     <style>
         .banner {
-            width: 500px;
-            height: 332px;
+            width: 100%;
+            height: 189px;
             margin: 50px auto;
             padding: 30px 40px;
-            background-color: #333333;
             position: relative;
         }
 
         .swiper-container {
-            width: 500px;
-            height: 332px;
+            width: 100%;
+            height: 189px;
         }
-
+        .swiper-slide img{
+            width: 375px;
+            height: 189px;
+        }
         .pagination {
             position: absolute;
             left: 0;
@@ -30,27 +32,6 @@
             bottom:5px;
             width: 100%;
         }
-
-        .banner .arrow-left {
-            background: url(./swiper/img/arrows.png) no-repeat left top;
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            margin-top: -15px;
-            width: 17px;
-            height: 30px;
-        }
-
-        .banner .arrow-right {
-            background: url(./swiper/img/arrows.png) no-repeat left bottom;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            margin-top: -15px;
-            width: 17px;
-            height: 30px;
-        }
-
         .swiper-pagination-switch {
             display: inline-block;
             width: 10px;
@@ -68,9 +49,8 @@
 </head>
 <body>
     <div id="app" class="banner">
-        <div>
-            <lunbo :data="lunbo"></lunbo>
-        </div>
+        <lunbo :data="lunbo"></lunbo>
+        <content1 :data="content1"></content1>
     </div>
     <script>
         <!--组件-->
@@ -80,12 +60,27 @@
                 console.log(this.data);
             },
             template: `
-                <div class="swiper-container">
-                  <div class="swiper-wrapper">
-                      <div class="swiper-slide" v-for="(item,index) in data"> <img :src="item.photoUrl" alt=""></div>
-                  </div>
-                <div class="pagination"></div>
+                <div>
+                    <div class="swiper-container">
+                      <div class="swiper-wrapper">
+                          <div class="swiper-slide" v-for="(item,index) in data"> <img :src="item.photoUrl" alt=""></div>
+                      </div>
+                    <div class="pagination"></div>
+                    </div>
                 </div>
+
+                `
+        };
+        var content1 = {
+            props:["data"],
+            created:function(){
+                console.log(this.data);
+            },
+            template: `
+                    <div>
+                        <div v-for="data"></div>
+                    </div>
+
                 `
         };
         var vm = new Vue({
@@ -99,10 +94,15 @@
                 axios.get("js/h1.json").then(data=>{
                     console.log(data);
                     this.lunbo = data.data
+                });
+                axios.get("js/h2.json").then(data=>{
+                    console.log(data);
+                    this.content1 = data.data
                 })
             },
             components:{
                 lunbo,
+                content1,
             }
         })
     </script>
