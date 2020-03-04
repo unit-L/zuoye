@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width = device-width">
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-router.js"></script>
+    <style>
+        #app{
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+        }
+        .tt{
+            position: fixed;
+            bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="tt">
+            <router-link to="/dy1"><button>电影</button></router-link>
+            <router-link to="/dsj1"><button>电视剧</button></router-link>
+            <router-link to="/zy1"><button>综艺节目</button></router-link>
+        </div>
+        <router-view></router-view>
+
+    </div>
+    <script>
+        //1,创建3个组件
+        var dy = {
+            template:`
+                   <button>电影</button>
+                `
+        };
+        var dsj = {
+            template:`
+                   <button>电视剧</button>
+                `
+        };
+        var zy = {
+            template:`
+                   <button>综艺节目</button>
+                `
+        };
+        //2,创建路由配置表
+        var routes = [
+            {"path":"/dy1","component":dy},
+            {"path":"/dsj1","component":dsj},
+            {"path":"/zy1","component":zy}
+        ];
+        // 3,配置路由表
+        var router = new VueRouter({
+            routes:routes
+        });
+
+        var vm = new Vue({
+            el:"#app",
+            data:{
+
+            },
+            // 4,注册到根组件
+            router:router
+        })
+    </script>
+</body>
+</html>

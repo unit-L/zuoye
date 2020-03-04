@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{num}}<br>
+    {{num | px(num)}}
+</div>
+
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            num:[15,45,25,15,30,40]
+        },
+        filters:{
+            px:function (num) {
+                var sum = []
+                sum = num.concat();
+                sum.sort(function (a,b) {
+                  return a - b
+                });
+                return sum
+            }
+        }
+    })
+</script>
+</body>
+</html>

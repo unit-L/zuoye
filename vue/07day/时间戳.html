@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="app">
+    <div v-for="(item,index) in timearr">
+        {{item}}
+        {{item | money}}
+    </div>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            timearr:['1579657789851','1563516693000','1578539380000'],
+        },
+        filters:{
+            money:function(item) {
+                var date = new Date(Number(item));
+                console.log(date);
+                var Y = date.getFullYear() + '-';
+                var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+                var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+                var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+                var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+                var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+                return Y + M + D + h + m + s;
+            }
+        }
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{num}}
+        {{num | fixed1(num)}}
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                num:12.15646
+            },
+            filters:{
+                fixed1:function (num) {
+                    console.log(num);
+                    return num.toFixed(2)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
