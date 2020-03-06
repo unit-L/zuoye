@@ -2,12 +2,25 @@
     <div>
         <div id="nav1">
             <select >
-                <option value="厦门">厦门</option>
+                <option value="">厦门</option>
             </select>
             <input type="text" placeholder="请输入关键词">
         </div>
         <div id="banner">
-            <img src="https://img.jvhv.com/images/201908/5d5f44fba0a1b.png" alt="">
+            <!--轮播-->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="(item,index) in swiperArr" :key="index">
+                        <img :src="item.adlist_img"  :alt="item.adtitle" />
+                    </div>
+                </div>
+
+                <div class="swiper-pagination"></div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+
         </div>
         <div id="con">
             <span v-for="(item,index) in iconList">{{item.CategoryName}}</span>
@@ -48,7 +61,7 @@
 </template>
 
 <script>
-
+    import Swiper from 'swiper';
     //引入 axios
     import axios from 'axios';
     export default {
@@ -57,7 +70,8 @@
             return {
                 top5Arr:[],
                 iconList:[],
-                CourseforYou:[]
+                CourseforYou:[],
+                swiperArr:[]
             }
         },
         //挂载的函数
@@ -67,8 +81,23 @@
                 this.iconList = res.data.data.iconList;
                 this.top5Arr = res.data.data.CourseTop5;
                 this.CourseforYou = res.data.data.CourseforYou;
-                console.log(this.CourseforYou);
+                console.log(res);
+                this.swiperArr =res.data.data.top_ad.list
+            });
+            var mySwiper = new Swiper ('.swiper-container', {
+                loop: true,
+                autoplay:2000,
+                speed:1000,
+                observer:true,//处理异步数据
+                observeParents:true,
+                // 如果需要分页器
+                pagination: '.swiper-pagination',
+
+                // 如果需要前进后退按钮
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
             })
+
         }
 
     }
@@ -99,10 +128,11 @@
         width: 100%;
         height: 170px;
     }
-    #banner img{
+    .swiper-container {
         width: 100%;
-        height: 100%;
+        height: 170px;
     }
+    .swiper-container img{height:170px;width: 100%;}
     #con{
         width: 100%;
         height:215px ;
