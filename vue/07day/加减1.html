@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width = device-width"></meta>
+    <title></title>
+    <script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/axios.min.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        ul li{
+            list-style: none;
+        }
+        img{
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--插入的路由信息-->
+    <router-link to="/list"> 首页</router-link>
+    <router-link to="/item"> 内容页</router-link>
+    <!--路由出口-->
+    <router-view>  </router-view>
+</div>
+<script type="text/template" id="listT">
+    <div>
+        <h2>本周最受欢迎的Top5</h2>
+        <ul>
+            <li v-for="(item,index) in list">
+                <img :src="item.pro_img[0].url" alt="">
+                <div>{{item.pro_name}}</div>
+            </li>
+        </ul>
+    </div>
+
+</script>
+<script type="text/template" id="itemT">
+    <div>
+        产品id：{{$route.pro_id}}
+        <h2>本周最受欢迎的Top5</h2>
+        <ul>
+            <li v-for="(item,index) in item">
+
+            </li>
+        </ul>
+    </div>
+
+</script>
+<script type="text/javascript">
+    //1,组件
+    var mylist = {
+        data:function(){
+          return{
+              list:[]
+          }
+        },
+        template:`#listT`,
+        mounted:function (){
+            axios.post("https://www.jvhv.com/siteindex.php/Index/Index.html").then((res)=>{
+                console.log(res);
+                this.list = res.data.data.CourseTop5
+            })
+        }
+
+    };
+    var myitem = {
+        data:function() {
+            return {
+                item: []
+            };
+        },
+        template:`#itemT`,
+        mounted:function (){
+            axios.post("https://www.jvhv.com/siteindex.php/Lesson/Detail.html", {pro_id: 141,
+                fid:''}).then((res)=>{
+                console.log(res);
+                this.list = res.data.data.CourseTop5
+            })
+        }
+    };
+    //2，配置路由表
+    var routes = [
+        {"path":"/list","component":mylist},
+        {"path":"/item/pro_id","component":myitem}
+    ];
+    //3，创建路由对象
+    var router = new VueRouter({
+        routes:routes
+    });
+    var vm = new Vue({
+        el:"#app",
+        data:{
+        },
+        router:router//4.注册
+    })
+</script>
+</body>
+</html>
