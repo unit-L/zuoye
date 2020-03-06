@@ -64,6 +64,7 @@
     import Swiper from 'swiper';
     //引入 axios
     import axios from 'axios';
+    import 'swiper/dist/css/swiper.css';
     export default {
         name:'Mymain',
         data:function(){
