@@ -9,9 +9,15 @@
     <script src="../js/vue-router.js" type="text/javascript" charset="utf-8"></script>
     <script src="../js/axios.min.js" type="text/javascript" charset="utf-8"></script>
     <style>
-        img{
+        ul,li{
+            list-style: none;
+        }
+        .img{
             width: 100px;
             height: 100px;
+        }
+        img{
+            width: 100%;
         }
     </style>
 </head>
@@ -36,7 +42,7 @@
 						<li v-for="(item,index) in list">
 
 						<router-link :to="'/myitem/'+item.pro_id">
-							<img :src="item.pro_imglist[index].url" >
+							<img :src="item.pro_img[0].url" class="img">
                             {{item.pro_name}}
 						</router-link>
 						</li>
@@ -56,21 +62,33 @@
                 item:{}
             }
         },
-        template:`<div>内容页
-				产品标题：<span v-if="item.pro_name !== undefined">{{item.pro_name}}</span>
-				<div v-if="item.pro_name !== undefined">
-					<img :src="item.pro_imglist.url" />
-				</div>
+        template:`<div>
+                    <div>内容页{{$route.params.pro_id}}</div>
+                     <div v-if="item.pro_id !== undefined"style="margin-left:15px; ">
+                         <img :src="item.pro_img[0].url" />
+                         <div style="margin-left: 10px">
+                              <h1 >{{item.pro_name}}</h1>
+                              <div>{{item.pro_price}}</div>
+                          </div>
+
+                      </div>
 				</div>`,
         watch:{
             '$route'(to,from){}
         },
         mounted:function(){
+            var pid= parseInt(this.$route.params.pro_id);
+            //7.获取数据，将数据保存到变量中
+            let params = new URLSearchParams();
+            params.append('pro_id',pid);
+            params.append('fid','');
             //获取内容页数据
-            axios.get("https://www.jvhv.com/siteindex.php/Lesson/Detail.html ").then((res)=>{
-                console.log(res);
-                this.item = res.data;
+            axios.post("https://www.jvhv.com/siteindex.php/Lesson/Detail.html/",params).then((res)=>{
+
+                // console.log(res);
+                this.item = res.data.data;
                 console.log(this.item);
+
             })
         }
     };
@@ -78,12 +96,12 @@
     /*********2.配置路由表***************************/
     var routes = [
         {"path":"/mylist","component":mylist},
-        {"path":"/myitem/:id","component":myitem} /*a.配置动态路由的第一步  :参数名*/
-    ]
+        {"path":"/myitem/:pro_id","component":myitem} /*a.配置动态路由的第一步  :参数名*/
+    ];
     /********3.创建路由对象****************************/
     var router = new VueRouter({
         routes:routes
-    })
+    });
 
     var vm = new Vue({
         el:"#app",
