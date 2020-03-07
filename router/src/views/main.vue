@@ -1,5 +1,5 @@
 <template>
     <div id="main">
-        <h1>main</h1>
+        <h1>消息</h1>
     </div>
 </template>

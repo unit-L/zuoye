@@ -5,19 +5,20 @@
         <img src="https://www.jvhv.com/wap/static/images/footer_1_red.png" />
         <div>主页</div>
       </router-link>
-      <!--<router-link to="/about">About</router-link> |-->
-      <router-link to="/main">
-        <img src="https://www.jvhv.com/wap/static/images/footer_6_red.png" />
-        <div>main</div>
-      </router-link>
-      <router-link to="/content">
-        <img src="https://www.jvhv.com/wap/static/images/footer_8_red.png" />
-        <div>content</div>
-      </router-link>
       <router-link to="/myfont">
         <img src="https://www.jvhv.com/wap/static/images/footer_5_red.png" />
         <div>发现</div>
       </router-link>
+      <!--<router-link to="/about">About</router-link> |-->
+      <router-link to="/main">
+        <img src="https://www.jvhv.com/wap/static/images/footer_6_red.png" />
+        <div>消息</div>
+      </router-link>
+      <router-link to="/content">
+        <img src="https://www.jvhv.com/wap/static/images/footer_8_red.png" />
+        <div>我的</div>
+      </router-link>
+
       <!--<router-link to="/mymain">主页</router-link>-->
     </div>
     <router-view/>

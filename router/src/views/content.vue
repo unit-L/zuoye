@@ -1,5 +1,5 @@
 <template>
-    <div id="content">内容页</div>
+    <div id="content">我的</div>
 </template>
 
 <script>

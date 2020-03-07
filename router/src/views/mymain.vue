@@ -23,7 +23,12 @@
 
         </div>
         <div id="con">
-            <span v-for="(item,index) in iconList">{{item.CategoryName}}</span>
+            <span v-for="(item,index) in iconList" :key="index">
+                <div>
+                    <img :src="require('../assets/icon/'+(index+1)+'.png')" alt="">
+                </div>
+                {{item.CategoryName}}
+            </span>
         </div>
         <div id="carry">
             <h3>为您精选</h3>
@@ -44,8 +49,8 @@
             <div class="top5Con">
                 <h2>本周最受欢迎TOP5</h2>
                 <ul class="top5list">
-                    <li v-for="(item,index) in top5Arr">
-                        <router-link :to="'/item/'+item.pro_id">
+                    <li v-for="(item,index) in top5Arr" :key="index">
+                        <router-link :to="'/myitem'+item.pro_id">
                             <div class="top5_img"><img :src="item.pro_img[0].url" /></div>
                             <div class="top5_text">
                                 <div>{{item.pro_name}}</div>
@@ -61,9 +66,10 @@
 </template>
 
 <script>
-    import Swiper from 'swiper';
     //引入 axios
     import axios from 'axios';
+
+    import Swiper from 'swiper';
     import 'swiper/dist/css/swiper.css';
     export default {
         name:'Mymain',
@@ -128,6 +134,7 @@
     #banner{
         width: 100%;
         height: 170px;
+        border-bottom: 10px solid #eee;
     }
     .swiper-container {
         width: 100%;
@@ -141,15 +148,14 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
-        text-align: center;
+        justify-content: space-around;
+        border-bottom: 10px solid #eee;
+
     }
     #con span{
         width: 17%;
-        background: aqua;
         text-align: center;
-        line-height: 100px;
-        margin: 5px;
+        margin-top: 10px;
     }
     #carry{
         height: 334px;

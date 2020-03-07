@@ -38,7 +38,13 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/myfont.vue')
+        component: () => import(/* webpackChunkName: "about" */ '../views/myfont.vue'),
+        children:[
+            {"path":"/",redirect:'tuijian'},
+            {"path":'tuijian',name:"tuijian",component:()=>import(/* webpackChunkName: "mytuijian" */ '../views/tuijian.vue')},
+            {"path":'guanzhu',name:"guanzhu",component:()=>import(/* webpackChunkName: "myguanzhu" */ '../views/guanzhu.vue')},
+            {"path":'tongcheng',name:"tongcheng",component:()=>import(/* webpackChunkName: "mytongcheng" */ '../views/tongcheng.vue')}
+        ]
     },
     {
         path: '/main',
@@ -56,6 +62,12 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "content" */ '../views/content.vue')
+    },
+    {
+        path:'/myitem:itemid',
+        name:'myitem',
+        //路由栏加载,性能更好
+        component: () => import(/* webpackChunkName: "myitem" */ '../views/myitem.vue')
     }
 ]
 
